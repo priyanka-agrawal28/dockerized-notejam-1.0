@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    image: notejam:1.0
+    restart: unless-stopped
+    command: bash -c "python manage.py syncdb && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    container_name: notejam
+    volumes:
+            - notejam_data:/usr/src/app
+    ports:
+            - "8000:8000"
+volumes:
+  notejam_data:
